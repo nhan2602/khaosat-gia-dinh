@@ -4,28 +4,24 @@ document.getElementById("surveyForm").addEventListener("submit", function(e){
   e.preventDefault();
 
   const data = {
-    hoten: document.getElementById("hoten").value,
-    lophoc: document.getElementById("lophoc").value,
-    diachi: document.querySelector("[name='dia_chi']").value,
-    thanhvien: document.querySelector("[name='thanh_vien']").value,
-    thunhap: document.querySelector("[name='thu_nhap']").value,
-    dientich: document.querySelector("[name='dien_tich']").value,
-    tiendien: document.querySelector("[name='tien_dien']").value,
-    tiennuoc: document.querySelector("[name='tien_nuoc']").value,
-    thucpham: document.querySelector("[name='chi_phi_thuc_pham']").value,
-    phuongtien: "test"
+    hoten: document.getElementById("name").value,
+    lophoc: document.getElementById("class").value,
+    householdType: document.getElementById("householdType").value,
+    maylanh: document.getElementById("maylanh").value,
+    tulanh: document.getElementById("tulanh").value,
+    maygiat: document.getElementById("maygiat").value
   };
 
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify(data)
   })
-  .then(res => res.json())
-  .then(response => {
+  .then(res => res.text())
+  .then(() => {
     document.getElementById("message").innerHTML = "✅ Gửi thành công";
     document.getElementById("surveyForm").reset();
   })
-  .catch(error => {
+  .catch(() => {
     document.getElementById("message").innerHTML = "❌ Lỗi gửi dữ liệu";
   });
 });
