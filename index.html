@@ -1,40 +1,127 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khảo sát gia đình</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khảo sát</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+    margin:0;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    margin-top:30px;
+    border-radius:10px;
+}
+
+h2{
+    text-align:center;
+}
+
+.section{
+    margin-top:20px;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    font-weight:bold;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+}
+
+button{
+    display:block;
+    margin:auto;
+    margin-top:20px;
+    padding:12px 25px;
+    font-size:16px;
+    background:#28a745;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="container">
-    <h1>Khảo sát gia đình</h1>
+<div class="container">
 
-    <form id="surveyForm">
+<!-- STEP 1 -->
+<div id="step1">
+<h2>Thông tin người khảo sát</h2>
 
-      <div class="form-group">
-        <label>Họ và tên</label>
-        <input type="text" name="ho_ten" required>
-      </div>
+<label>Họ và tên</label>
+<input type="text" id="name">
 
-      <div class="form-group">
-        <label>Loại hộ gia đình</label>
-        <select name="so_nguoi" required>
-          <option value="">-- Chọn --</option>
-          <option value="1">Hộ 1 người</option>
-          <option value="2">Hộ 2–3 người</option>
-          <option value="4">Hộ 4–5 người</option>
-          <option value="6">Hộ trên 5 người</option>
-        </select>
-      </div>
+<label>Lớp học phần</label>
+<input type="text" id="class">
 
-      <button type="submit">Gửi khảo sát</button>
-    </form>
+<button onclick="nextStep()">Tiếp tục</button>
+</div>
 
-    <p id="message"></p>
-  </div>
+<!-- STEP 2 -->
+<div id="step2" style="display:none;">
+<h2>Khảo sát gia đình</h2>
 
-  <script src="script.js"></script>
+<form id="surveyForm">
+
+<label>Loại hộ gia đình</label>
+<select id="householdType">
+<option value="">-- Chọn --</option>
+<option>Hộ 1 người</option>
+<option>Hộ 2–3 người</option>
+<option>Hộ 4–5 người</option>
+<option>Hộ trên 5 người</option>
+</select>
+
+<label>Số lượng máy lạnh</label>
+<input type="number" id="maylanh">
+
+<label>Số lượng tủ lạnh</label>
+<input type="number" id="tulanh">
+
+<label>Số lượng máy giặt</label>
+<input type="number" id="maygiat">
+
+<button type="submit">Gửi khảo sát</button>
+
+</form>
+</div>
+
+<p id="message" style="text-align:center"></p>
+
+</div>
+
+<script>
+function nextStep(){
+    let name = document.getElementById("name").value;
+    let lop = document.getElementById("class").value;
+
+    if(name=="" || lop==""){
+        alert("Vui lòng nhập đầy đủ thông tin");
+        return;
+    }
+
+    document.getElementById("step1").style.display="none";
+    document.getElementById("step2").style.display="block";
+}
+</script>
+
+<script src="script.js"></script>
+
 </body>
 </html>
