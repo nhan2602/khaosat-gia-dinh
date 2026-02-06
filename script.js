@@ -1,31 +1,31 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxH7K9Gkc3qzrl-HFvtLets9blYzqfocSErUrwKhQRqoO2rG6945fTC1gCWA8qNPdUrLQ/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbxH7K9Gkc3qzrl-HFvtLets9blYzqfocSErUrwKhQRqoO2rG6945fTC1gCWA8qNPdUrLQ/exec";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("surveyForm");
+document.getElementById("surveyForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
-  if (!form) {
-    console.error("❌ Không tìm thấy form");
-    return;
-  }
+  const data = {
+    hoten: document.getElementById("hoten").value,
+    lophoc: document.getElementById("lophoc").value,
+    diachi: document.querySelector("[name='dia_chi']").value,
+    thanhvien: document.querySelector("[name='thanh_vien']").value,
+    thunhap: document.querySelector("[name='thu_nhap']").value,
+    dientich: document.querySelector("[name='dien_tich']").value,
+    tiendien: document.querySelector("[name='tien_dien']").value,
+    tiennuoc: document.querySelector("[name='tien_nuoc']").value,
+    thucpham: document.querySelector("[name='chi_phi_thuc_pham']").value,
+    phuongtien: "test"
+  };
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const data = {
-      ho_ten: form.ho_ten.value,
-      so_nguoi: form.so_nguoi.value
-    };
-
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-
-    alert("✅ Gửi khảo sát thành công!");
-    form.reset();
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(response => {
+    document.getElementById("message").innerHTML = "✅ Gửi thành công";
+    document.getElementById("surveyForm").reset();
+  })
+  .catch(error => {
+    document.getElementById("message").innerHTML = "❌ Lỗi gửi dữ liệu";
   });
 });
